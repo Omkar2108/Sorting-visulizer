@@ -172,6 +172,9 @@ export class Sorting extends Component {
                 }, i * this.state.speed);
             }
         }
+        setTimeout(() => {
+
+        })
     }
 
     render() {
