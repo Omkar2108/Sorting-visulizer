@@ -5,6 +5,7 @@ import { getHeapAnimation } from './Algorithms/heap';
 import { getSelectionAnimation } from './Algorithms/selection';
 import { getInsertionAnimation } from './Algorithms/insertion';
 import { getMergeAnimation } from './Algorithms/merge';
+import { getQuickAnimation } from './Algorithms/quick';
 
 const PRIMARY_COLOR = 'turquoise'; //Normal color of bars
 const SECONDARY_COLOR = 'red'; //Color of bars when they are being compared
@@ -31,73 +32,15 @@ export class Sorting extends Component {
             array.push(parseInt(Math.random() * (600) + 5));
         }
         this.setState({ array });
-        // console.log(array);
     }
 
-    bubbleSort() {
-        const [animation, array] = getBubbleAnimation(this.state.array);
+    animate(animation, array) {
         for (let i = 0; i < animation.length; i++) {
             const isColorChange = animation[i][0] === "compare1" || animation[i][0] === "compare2";
             const arraybar = document.getElementsByClassName("array-bar");
             if (isColorChange === true) {
                 const [compare, index1, index2] = animation[i];
-                const color = (compare === "compare1") ? SECONDARY_COLOR : PRIMARY_COLOR;
-                const index1style = arraybar[index1].style;
-                const index2style = arraybar[index2].style;
-                setTimeout(() => {
-                    index1style.backgroundColor = color;
-                    index2style.backgroundColor = color;
-                }, i * this.state.speed);
-            }
-            else {
-                const [swap, index, height] = animation[i];
-                if (index === -1) {
-                    continue;
-                }
-                const indexstyle = arraybar[index].style;
-                setTimeout(() => {
-                    indexstyle.height = `${height}px`;
-                }, i * this.state.speed);
-            }
-        }
-    }
-
-    heapSort() {
-        const [animation, array] = getHeapAnimation(this.state.array);
-        for (let i = 0; i < animation.length; i++) {
-            const isColorChange = animation[i][0] === "compare1" || animation[i][0] === "compare2";
-            const arraybar = document.getElementsByClassName("array-bar");
-            if (isColorChange === true) {
-                const [compare, index1, index2] = animation[i];
-                const color = (compare === "compare1") ? SECONDARY_COLOR : PRIMARY_COLOR;
-                const index1style = arraybar[index1].style;
-                const index2style = arraybar[index2].style;
-                setTimeout(() => {
-                    index1style.backgroundColor = color;
-                    index2style.backgroundColor = color;
-                }, i * this.state.speed);
-            }
-            else {
-                const [swap, index, height] = animation[i];
-                if (arraybar[index] === undefined) {
-                    continue;
-                }
-                const indexstyle = arraybar[index].style;
-                setTimeout(() => {
-                    indexstyle.height = `${height}px`;
-                }, i * this.state.speed);
-            }
-        }
-    }
-
-    insertionSort() {
-        const [animation, array] = getInsertionAnimation(this.state.array);
-        for (let i = 0; i < animation.length; i++) {
-            const isColorChange = animation[i][0] === "compare1" || animation[i][0] === "compare2";
-            const arraybar = document.getElementsByClassName("array-bar");
-            if (isColorChange === true) {
-                const [compare, index1, index2] = animation[i];
-                if (index1 && index2) {
+                if (index1 !== undefined && index2 !== undefined) {
                     const color = (compare === "compare1") ? SECONDARY_COLOR : PRIMARY_COLOR;
                     const index1style = arraybar[index1].style;
                     const index2style = arraybar[index2].style;
@@ -112,60 +55,6 @@ export class Sorting extends Component {
                 if (arraybar[index] === undefined) {
                     continue;
                 }
-                const indexstyle = arraybar[index].style;
-                setTimeout(() => {
-                    indexstyle.height = `${height}px`;
-                }, i * this.state.speed);
-            }
-        }
-    }
-
-    mergeSort() {
-        const [animation, array] = getMergeAnimation(this.state.array);
-        for (let i = 0; i < animation.length; i++) {
-            const isColorChange = animation[i][0] === "compare1" || animation[i][0] === "compare2";
-            const arraybar = document.getElementsByClassName("array-bar");
-            if (isColorChange === true) {
-                const [compare, index1, index2] = animation[i];
-                if (index1 && index2) {
-                    const color = (compare === "compare1") ? SECONDARY_COLOR : PRIMARY_COLOR;
-                    const index1style = arraybar[index1].style;
-                    const index2style = arraybar[index2].style;
-                    setTimeout(() => {
-                        index1style.backgroundColor = color;
-                        index2style.backgroundColor = color;
-                    }, i * this.state.speed);
-                }
-            }
-            else {
-                const [swap, index, height] = animation[i];
-                const indexstyle = arraybar[index].style;
-                setTimeout(() => {
-                    indexstyle.height = `${height}px`;
-                }, i * this.state.speed);
-            }
-        }
-    }
-
-    selectionSort() {
-        const [animation, array] = getSelectionAnimation(this.state.array);
-        for (let i = 0; i < animation.length; i++) {
-            const isColorChange = animation[i][0] === "compare1" || animation[i][0] === "compare2";
-            const arraybar = document.getElementsByClassName("array-bar");
-            if (isColorChange === true) {
-                const [compare, index1, index2] = animation[i];
-                if (index1 && index2) {
-                    const color = (compare === "compare1") ? SECONDARY_COLOR : PRIMARY_COLOR;
-                    const index1style = arraybar[index1].style;
-                    const index2style = arraybar[index2].style;
-                    setTimeout(() => {
-                        index1style.backgroundColor = color;
-                        index2style.backgroundColor = color;
-                    }, i * this.state.speed);
-                }
-            }
-            else {
-                const [swap, index, height] = animation[i];
                 const indexstyle = arraybar[index].style;
                 setTimeout(() => {
                     indexstyle.height = `${height}px`;
@@ -173,8 +62,39 @@ export class Sorting extends Component {
             }
         }
         setTimeout(() => {
+            this.setState({ array: array });
+        }, (animation.length * this.state.speed));
+    }
 
-        })
+    bubbleSort() {
+        const [animation, array] = getBubbleAnimation(this.state.array);
+        this.animate(animation, array);
+    }
+
+    heapSort() {
+        const [animation, array] = getHeapAnimation(this.state.array);
+        console.log(array);
+        this.animate(animation, array);
+    }
+
+    insertionSort() {
+        const [animation, array] = getInsertionAnimation(this.state.array);
+        this.animate(animation, array);
+    }
+
+    mergeSort() {
+        const [animation, array] = getMergeAnimation(this.state.array);
+        this.animate(animation, array);
+    }
+
+    quickSort() {
+        let [animation, array] = getQuickAnimation(this.state.array);
+        this.animate(animation, array);
+    }
+
+    selectionSort() {
+        const [animation, array] = getSelectionAnimation(this.state.array);
+        this.animate(animation, array);
     }
 
     render() {
@@ -196,7 +116,7 @@ export class Sorting extends Component {
                 <button onClick={() => this.heapSort()}>Heap Sort</button>
                 <button onClick={() => this.insertionSort()}>Insertion Sort</button>
                 <button onClick={() => this.mergeSort()}>Merge Sort</button>
-                <button>Quick Sort</button>
+                <button onClick={() => this.quickSort()}>Quick Sort</button>
                 <button onClick={() => this.selectionSort()}>Selection Sort</button>
                 <br />
                 <div className="array-container">

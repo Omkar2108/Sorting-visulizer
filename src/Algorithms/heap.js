@@ -8,44 +8,49 @@ export const getHeapAnimation = (array) => {
 
 
 const heapSort = (array, animation) => {
+    const n = array.length;
+    for (let i = parseInt(n / 2) - 1; i >= 0; i--) {
+        heapify(array, n, i, animation);
+    }
 
-    let n = array.length;
-    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-        animation = max_heapify(array, i, n, animation);            //Building max heap
+    for (let i = n - 1; i > 0; i--) {
+        animation.push(["swap", 0, array[i]]);
+        animation.push(["swap", i, array[0]]);
+        swap(array, i, 0);
+        heapify(array, i, 0, animation);
     }
-    for (let i = n - 1; i >= 0; i--) {
-        animation.push(["swap", i, array[i + 1]]);
-        animation.push(["swap", i + 1, array[i]]);
-        swap(array, 0, i);              //Deleting root element
-        animation = max_heapify(array, 0, i, animation);           //Building max heap again
-    }
-    return [array, animation];
 }
 
 
-function max_heapify(array, i, n, animation) {
-    let left = 2 * i;              //Left child index
-    let right = 2 * i + 1;           //Right child index
-    let maximum;
-    if (right < n) {                 //Checks if right child exist
-        if (array[left] >= array[right]) {    //Compares children to find maximum
-            maximum = left;
-        }
-        else {
-            maximum = right;
-        }
+function heapify(array, n, i, animation) {
+    let largest = i;
+    let l = i * 2 + 1;
+    let r = i * 2 + 2;
+
+    if (l < n) {
+        animation.push(["compare1", l, largest]);
+        animation.push(["compare2", l, largest]);
     }
-    else if (left < n) {                //Checks if left child exists
-        maximum = left;
+
+    if (l < n && array[l] > array[largest]) {
+        largest = l;
     }
-    else return animation;                    //In case of no children return
-    animation.push(["compare1", i, maximum]);
-    animation.push(["compare2", i, maximum]);
-    if (array[i] < array[maximum]) {            //Checks if the largest child is greater than parent
-        swap(array, i, maximum);          //If it is then swap both
-        animation = max_heapify(array, maximum, n, animation);       //max-heapify again
+
+    if (r < n) {
+        animation.push(["compare1", r, largest]);
+        animation.push(["compare2", r, largest]);
     }
-    return animation;
+
+    if (r < n && array[r] > array[largest]) {
+        largest = r;
+    }
+
+    if (largest !== i) {
+        animation.push(["swap", i, array[largest]]);
+        animation.push(["swap", largest, array[i]]);
+        swap(array, i, largest);
+        heapify(array, n, largest, animation);
+    }
 }
 
 
