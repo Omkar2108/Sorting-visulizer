@@ -4,6 +4,30 @@
 	bottom: 0px;
 }
 
+.button {
+	position: relative;
+	background-color: #6e776f;
+	border: none;
+	font-size: 1rem;
+	color: #ffffff;
+	padding: 20px;
+	width: 150px;
+	text-align: center;
+	transition-duration: 0.4s;
+	text-decoration: none;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.input {
+	margin-top: 10px;
+	border: 1px solid;
+}
+
+.input :focus {
+	border-radius: 10px;
+}
+
 .array-bar {
 	display: inline-block;
 	margin-bottom: 0px;

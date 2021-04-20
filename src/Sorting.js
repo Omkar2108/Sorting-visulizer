@@ -28,7 +28,7 @@ export class Sorting extends Component {
     resetArray(size) {
         const array = [];
         for (let i = 0; i < size; i++) {
-            array.push(parseInt(Math.random() * (600) + 5));
+            array.push(parseInt(Math.random() * (550) + 5));
         }
         this.setState({ array });
     }
@@ -139,26 +139,25 @@ export class Sorting extends Component {
         const { array, size, speed } = this.state;
         return (
             <div style={{ marginLeft: "100px", position: "absolute", justifyContent: 'center' }}>
-                <input id="size" style={{ top: 0, marginLeft: '300px', width: '150px', cursor: "pointer", marginBottom: "50px" }} type="range" defaultValue={size} min="10" max="70" step="10" onChange={(e) => {
+                <input className="input" id="size" style={{ top: 0, marginLeft: 200, width: '150px', cursor: "pointer", marginBottom: "50px" }} type="range" defaultValue={size} min="5" max="70" step="5" onChange={(e) => {
                     this.setState({ size: e.target.value });
                     this.resetArray(e.target.value);
                 }} />
                 <output style={{ color: "red" }}>{size} Elements</output>
-                <input id="speed" style={{ cursor: "pointer", marginLeft: "30px" }} type="range" defaultValue={speed} min="5" max="200" step="5" onChange={(e) => {
+                <input className="input" id="speed" style={{ cursor: "pointer", marginLeft: "30px" }} type="range" defaultValue={speed} min="5" max="200" step="5" onChange={(e) => {
                     this.setState({ speed: e.target.value });
                 }} />
                 <output style={{ color: "red" }}>{speed} ms</output>
                 <br />
-                <button id="generate" onClick={() => this.resetArray(size)} style={{ marginBottom: "50px", marginLeft: "25px", marginRight: "25px" }} >Generate New Array</button>
-                <button id="bubble" onClick={() => this.bubbleSort()} >Bubble Sort</button>
-                <button id="heap" onClick={() => this.heapSort()}>Heap Sort</button>
-                <button id="insertion" onClick={() => this.insertionSort()}>Insertion Sort</button>
-                <button id="merge" onClick={() => this.mergeSort()}>Merge Sort</button>
-                <button id="quick" onClick={() => this.quickSort()}>Quick Sort</button>
-                <button id="selection" onClick={() => this.selectionSort()}>Selection Sort</button>
-                <button style={{ marginLeft: 25 }} onClick>Stop</button>
+                <button className="button" id="generate" onClick={() => this.resetArray(size)} style={{ marginBottom: "10px", marginLeft: "25px", marginRight: 25 }} >New Array</button>
+                <button className="button" id="bubble" onClick={() => this.bubbleSort()} >Bubble Sort</button>
+                <button className="button" id="heap" onClick={() => this.heapSort()}>Heap Sort</button>
+                <button className="button" id="insertion" onClick={() => this.insertionSort()}>Insertion Sort</button>
+                <button className="button" id="merge" onClick={() => this.mergeSort()}>Merge Sort</button>
+                <button className="button" id="quick" onClick={() => this.quickSort()}>Quick Sort</button>
+                <button className="button" id="selection" onClick={() => this.selectionSort()}>Selection Sort</button>
                 <br />
-                <div className="array-container" style={{ position: "fixed", marginLeft: 100, marginBottom: 20 }}>
+                <div className="array-container" style={{ position: "fixed", marginLeft: 150, marginBottom: 10 }}>
                     {array.map((value, ind) => {
                         const val = value + 'px';
                         let color = this.isSorted(array) ? "rgba(128, 255, 0)" : "cyan";
