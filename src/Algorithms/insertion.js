@@ -27,8 +27,3 @@ const selectionSort = (auxArray, animation) => {
     }
 }
 
-function swap(array, first, second) {
-    let temp = array[first];
-    array[first] = array[second];
-    array[second] = temp;
-}

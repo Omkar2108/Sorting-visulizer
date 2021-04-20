@@ -50,7 +50,7 @@ export class Sorting extends Component {
                 }
             }
             else {
-                const [swap, index, height] = animation[i];
+                const [index, height] = [animation[i][1], animation[i][2]];
                 if (arraybar[index] === undefined) {
                     continue;
                 }
