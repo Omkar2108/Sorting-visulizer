@@ -1,13 +1,13 @@
 export const getInsertionAnimation = (array) => {
     let animation = [];
     let auxArray = array.slice();
-    selectionSort(auxArray, animation);
+    insertionSort(auxArray, animation);
     array = auxArray;
     return [animation, array];
 }
 
 
-const selectionSort = (auxArray, animation) => {
+const insertionSort = (auxArray, animation) => {
     for (let i = 0; i < auxArray.length; i++) {
         let key = auxArray[i];
         let j = i - 1;
