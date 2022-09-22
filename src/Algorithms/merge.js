@@ -20,7 +20,7 @@ const merge = (L, M, R, animation, auxArray) => {
     let i = L, j = M + 1;
     while (i <= M && j <= R) {
         animation.push(["compare1", i, j]);
-        animation.push(["compare2", i.j]);
+        animation.push(["compare2", i, j]);
         if (auxArray[i] <= auxArray[j]) {
             sortArray.push(auxArray[i++]);
         }
